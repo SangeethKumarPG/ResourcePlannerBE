@@ -21,15 +21,6 @@ const customerSchema = new mongoose.Schema({
         required: true,
         maxlength: 20,  
         match: [/^\+\d{1,3}(\s?\d+){1,20}$/, "Please fill a valid phone number (max 14 characters)"],
-    },
-    plan: {
-        type: String,
-    },
-    planName:{
-        type:String
-    },
-    domainName:{
-        type:String
     }
 }, { 
     timestamps: true 
