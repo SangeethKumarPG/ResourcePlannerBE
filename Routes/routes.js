@@ -5,6 +5,7 @@ const router = express.Router();
 const userController = require('../Controllers/userController');
 const productController = require('../Controllers/productController')
 const customerController = require('../Controllers/customerController')
+const orderController = require('../Controllers/orderController')
 
 const jwtMiddleWare = require('../MiddleWares/jwtMiddleWare');
 
@@ -17,5 +18,7 @@ router.post('/customers', jwtMiddleWare, customerController.createCustomer);
 router.get('/customers', jwtMiddleWare, customerController.fetchCustomers);
 router.put('/customers/:id', jwtMiddleWare, customerController.editCustomer);
 router.delete('/customers/:id', jwtMiddleWare, customerController.deleteCustomer);
+router.post('/orders', jwtMiddleWare, orderController.addOrder);
+router.get('/orders', jwtMiddleWare, orderController.fetchAllOrders);
 
 module.exports = router;
