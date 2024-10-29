@@ -26,5 +26,6 @@ router.put('/orders/:id', jwtMiddleWare, orderController.renewOrder);
 router.delete('/orders/:id', jwtMiddleWare, orderController.deleteOrder);
 
 router.get('/orders/:id', orderController.fetchOrderById);
+router.put('/orders/make-payment/:id', orderController.changePaymentStatus);
 
 module.exports = router;

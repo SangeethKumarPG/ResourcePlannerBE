@@ -2,6 +2,8 @@ const orders = require("../Models/orderSchema");
 const users = require("../Models/userSchema");
 const archive = require("../Models/archiveSchema");
 const customers = require('../Models/customersSchema')
+const mailer = require('./mailer')
+const dayjs = require('dayjs')
 
 
 exports.addOrder = async (req, res) => {
@@ -18,6 +20,13 @@ exports.addOrder = async (req, res) => {
         customer_phone: existingUser.phone  
       }
       res.status(201).json(savedOrder);
+      mailer.sendEmail(customerDetails.customer_email,
+        "New Order Placed",
+        `Dear ${customerDetails.customer_name},\n\nYour order has been placed successfully.
+        \n kindly make payment by clicking the below link:\n
+        ${process.env.FE_URL}/payment/${savedOrder._id} \n
+        \n\nThank you for choosing us.\n\nBest regards,\nResource Planner Team`
+      )
     } else {
       console.log("User not authorized to add order");
       res.status(401).json("User not authorized to add order");
@@ -111,4 +120,27 @@ exports.fetchOrderById = async (req, res) => {
   }
 }
 
+exports.changePaymentStatus = async (req, res) => {
+  try{
+    const orderId = req.params.id;
+    const currentOrder = await orders.findOne({ _id: orderId });
+    let updatedOrder = {};
+    if(currentOrder){
+        if(req.body.paymentStatus === "paid"){
+          console.log("Making payment")
+          paymentDate = dayjs().toISOString();
+          console.log(paymentDate)
+          updatedOrder = await orders.findByIdAndUpdate(orderId, {paymentStatus: req.body.paymentStatus, paymentDate:paymentDate}, { new: true });
+        }else{
+          updatedOrder = await orders.findByIdAndUpdate(orderId, {paymentStatus: req.body.paymentStatus}, { new: true });
+        }
+        res.status(200).json(updatedOrder);
+    }else{
+        res.status(404).json("Order not found");
+    }
+  }catch(error){
+    console.log(error);
+    res.status(500).json("Internal server error");
+  }
+}
 
