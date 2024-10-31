@@ -6,6 +6,7 @@ const userController = require('../Controllers/userController');
 const productController = require('../Controllers/productController')
 const customerController = require('../Controllers/customerController')
 const orderController = require('../Controllers/orderController')
+const supportTickerController = require('../Controllers/supportTickerController')
 
 const jwtMiddleWare = require('../MiddleWares/jwtMiddleWare');
 
@@ -27,5 +28,11 @@ router.delete('/orders/:id', jwtMiddleWare, orderController.deleteOrder);
 
 router.get('/orders/:id', orderController.fetchOrderById);
 router.put('/orders/make-payment/:id', orderController.changePaymentStatus);
+
+
+router.post('/support-tickets', jwtMiddleWare, supportTickerController.createSupportTicket);
+router.get('/support-tickets', jwtMiddleWare, supportTickerController.fetchSupportTickets);
+router.post('/support-tickets/add-comments/:id', jwtMiddleWare, supportTickerController.addCommentToTicket);
+
 
 module.exports = router;
