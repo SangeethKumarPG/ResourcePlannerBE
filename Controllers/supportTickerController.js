@@ -68,3 +68,24 @@ exports.addCommentToTicket = async(req,res)=>{
         res.status(401).json("Unauthorized Access")
     }
 }
+
+exports.changeTicketStatus = async (req,res)=>{
+    const userId = req.payload;
+    const currentUser = await users.findOne({_id:userId});
+    if(currentUser.permissions.supportTickets === true){
+        try {
+          const ticket = await supportTicket.findOne({_id:req.params.id});
+          if(ticket){
+            ticket.status = req.body.status;
+            const updatedTicket = await ticket.save();
+            res.status(200).json(updatedTicket);
+          }else{
+            res.status(404).json("Ticket Not Found")
+          }
+        }catch(error){
+            console.log(error);
+        }
+    }else{
+        res.status(401).json("Unauthorized Access")
+    }
+} 

@@ -7,6 +7,7 @@ const productController = require('../Controllers/productController')
 const customerController = require('../Controllers/customerController')
 const orderController = require('../Controllers/orderController')
 const supportTickerController = require('../Controllers/supportTickerController')
+const agentController = require('../Controllers/agentController');
 
 const jwtMiddleWare = require('../MiddleWares/jwtMiddleWare');
 
@@ -33,6 +34,9 @@ router.put('/orders/make-payment/:id', orderController.changePaymentStatus);
 router.post('/support-tickets', jwtMiddleWare, supportTickerController.createSupportTicket);
 router.get('/support-tickets', jwtMiddleWare, supportTickerController.fetchSupportTickets);
 router.post('/support-tickets/add-comments/:id', jwtMiddleWare, supportTickerController.addCommentToTicket);
+router.put('/support-tickets/change-status/:id', jwtMiddleWare, supportTickerController.changeTicketStatus);
 
+
+router.get('/agents', jwtMiddleWare, agentController.fetchAllAgents);
 
 module.exports = router;
