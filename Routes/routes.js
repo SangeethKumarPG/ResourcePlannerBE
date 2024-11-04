@@ -35,7 +35,8 @@ router.post('/support-tickets', jwtMiddleWare, supportTickerController.createSup
 router.get('/support-tickets', jwtMiddleWare, supportTickerController.fetchSupportTickets);
 router.post('/support-tickets/add-comments/:id', jwtMiddleWare, supportTickerController.addCommentToTicket);
 router.put('/support-tickets/change-status/:id', jwtMiddleWare, supportTickerController.changeTicketStatus);
-
+router.put('/support-tickets/assign-agent/:id', jwtMiddleWare, supportTickerController.assignToAgent);
+router.delete('/support-tickets/:id', jwtMiddleWare, supportTickerController.deleteTicket)
 
 router.get('/agents', jwtMiddleWare, agentController.fetchAllAgents);
 
