@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
         required:true,
 
     },
+    email:{
+        type:String
+    },
+    contactNumber:{
+        type:String
+    },
     permissions:{
         orders:{
             read:{type:Boolean, default:false},

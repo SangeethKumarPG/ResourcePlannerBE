@@ -39,5 +39,6 @@ router.put('/support-tickets/assign-agent/:id', jwtMiddleWare, supportTickerCont
 router.delete('/support-tickets/:id', jwtMiddleWare, supportTickerController.deleteTicket)
 
 router.get('/agents', jwtMiddleWare, agentController.fetchAllAgents);
+router.post('/agents', jwtMiddleWare, agentController.addAgent);
 
 module.exports = router;
