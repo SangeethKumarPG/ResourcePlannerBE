@@ -80,6 +80,7 @@ exports.changeTicketStatus = async (req,res)=>{
             ticket.status = req.body.status;
             if(ticket.status === "closed"){
                 ticket.resolutionDate = dayjs().format("DD/MM/YYYY HH:mm:ss");
+                ticket.resolvedBy = userId;
             }
             const updatedTicket = await ticket.save();
             res.status(200).json(updatedTicket);

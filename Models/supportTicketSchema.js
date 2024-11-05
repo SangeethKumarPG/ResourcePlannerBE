@@ -33,6 +33,10 @@ const supportTicketSchema = new mongoose.Schema({
     resolutionDate:{
         type:String
     },
+    resolvedBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"users"
+    },
     assignedTo:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"users"
