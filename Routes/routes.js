@@ -41,4 +41,8 @@ router.delete('/support-tickets/:id', jwtMiddleWare, supportTickerController.del
 router.get('/agents', jwtMiddleWare, agentController.fetchAllAgents);
 router.post('/agents', jwtMiddleWare, agentController.addAgent);
 
+router.put('/agents/password-change/:id', jwtMiddleWare, userController.resetPassword);
+router.put('/agents/update-permissions/:id', jwtMiddleWare, userController.updatePermissions);
+router.delete('/agents/delete/:id', jwtMiddleWare, userController.deleteUser);
+
 module.exports = router;
